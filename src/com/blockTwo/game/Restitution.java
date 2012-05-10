@@ -106,18 +106,18 @@ public class Restitution implements ApplicationListener {
         /**
          * Textures.
          */
-        bgImage = new Texture(Gdx.files.internal("assets/background.jpg"));
-        ballImage = new Texture(Gdx.files.internal("assets/ball_orange.png"));
-        audioPlaying = new Texture(Gdx.files.internal("assets/audio.png"));
-        audioMuted = new Texture(Gdx.files.internal("assets/audio_muted.png"));
+        bgImage = new Texture(Gdx.files.internal(absolutePathTo("/assets/background.jpg")));
+        ballImage = new Texture(Gdx.files.internal(absolutePathTo("/assets/ball_orange.png")));
+        audioPlaying = new Texture(Gdx.files.internal(absolutePathTo("/assets/audio.png")));
+        audioMuted = new Texture(Gdx.files.internal(absolutePathTo("/assets/audio_muted.png")));
         
         /**
          * Audio.
          */
         // Sounds
-        bounceSound = Gdx.audio.newSound(Gdx.files.internal("assets/ball_bounce.wav"));
-        buttonTurnOnSound = Gdx.audio.newSound(Gdx.files.internal("assets/click_on.wav"));
-        buttonTurnOffSound = Gdx.audio.newSound(Gdx.files.internal("assets/click_off.wav"));
+        bounceSound = Gdx.audio.newSound(Gdx.files.internal(absolutePathTo("/assets/ball_bounce.wav")));
+        buttonTurnOnSound = Gdx.audio.newSound(Gdx.files.internal(absolutePathTo("/assets/click_on.wav")));
+        buttonTurnOffSound = Gdx.audio.newSound(Gdx.files.internal(absolutePathTo("/assets/click_off.wav")));
         // Music
         
         
@@ -325,4 +325,13 @@ public class Restitution implements ApplicationListener {
         bounceSound.dispose();
     }
     
+    public String absolutePathTo(String fileName) {
+        String loc = getClass().getResource(fileName).toExternalForm();
+        System.out.println("to external: "+loc);
+        loc = loc.substring("file:".length());
+        while (loc.charAt(0) == '/' || loc.charAt(0) == '\\') {
+            loc = loc.substring(1);
+        }
+        return loc;
+    }
 }
